@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import './Navbar.css';
 import logo from '../Assets/logo.png';
-import cart_icon from '../Assets/cart_icon.png';
 import { Link } from 'react-router-dom';
+import {ShoppingCart} from "phosphor-react";
 
 const Navbar = () => {
 
@@ -12,7 +12,6 @@ const Navbar = () => {
     <div className='navbar'>
         <div className="nav-logo">
             <img src={logo} alt=""/>
-            <p>Superfoods</p>
         </div>
         <ul className="nav-menu">
             <li onClick={()=>{setMenu("home")}}><Link style={{textDecoration:'none', color: 'rgb(19, 88, 18)'}} to='/'>Home</Link>{menu==="home"?<hr/>:<></>}</li>
@@ -22,7 +21,7 @@ const Navbar = () => {
         </ul>
         <div className="nav-login-cart">
             <Link to='/login'><button>Login</button></Link>
-            <Link to='/cart'><img src={cart_icon} alt="" /></Link>
+            <Link to='/cart' style={{ color: 'black' }}><ShoppingCart size={32}/></Link>
             <div className="nav-cart-count">0</div>
         </div>
     </div>

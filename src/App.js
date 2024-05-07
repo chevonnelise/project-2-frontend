@@ -5,28 +5,26 @@ import Shop from './Pages/Shop';
 import Home from './Pages/Home';
 import About from './Pages/About';
 import Contact from './Pages/Contact';
-import Product from './Pages/Product';
 import Cart from './Pages/Cart';
-import LoginSignup from './Pages/LoginSignup';
+import Login from './Pages/Login';
 import Footer from './Components/Footer/Footer';
+import Register from './Pages/Register';
 
 function App() {
   return (
     <div>
       <BrowserRouter>
-      <Navbar/>
-      <Routes>
-        <Route path="/" element={<Home />}/>
-        <Route path="/shop" element={<Shop />}/>
-        <Route path="/about" element={<About />}/>
-        <Route path="/contact" element={<Contact />}/>
-        <Route path="/product" element={<Product />}>
-          <Route path=":productId" element={<Product />}/>
-        </Route>
-        <Route path="/cart" element={<Cart />}/>
-        <Route path="/login" element={<LoginSignup />}/>
-      </Routes>
-      <Footer/>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<Login />} />
+          <Route path='/register' element={<Register />} />
+        </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );
