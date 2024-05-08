@@ -1,45 +1,63 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import axios from 'axios';
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-      fetch('https://3000-chevonnelis-proj2backen-lqv6rdz4jy0.ws-us110.gitpod.io/api/products')
-        .then(res =>{
-          return res.json();
-        })
-        .then((data) => {
-          // console.log(data);
-          setProducts(data);
-        })
-        .catch(error => console.error('Error fetching data:', error));
+    setLoading(true);
+    axios.get('https://3000-chevonnelis-proj2backen-lqv6rdz4jy0.ws-us110.gitpod.io/api/products')
+      .then(res => {
+        setProducts(res.data.product);
+        setLoading(false);
+      })
+      .catch(error => {
+        setError('Error fetching data:', error);
+        setLoading(false);
+      });
   }, []);
 
+  const handleCart = async (productId) => {
+    setLoading(true);
+
+    try {
+      const response = await axios.post(`https://3000-chevonnelis-proj2backen-lqv6rdz4jy0.ws-us110.gitpod.io/api/cart/${productId}`);
+      console.log(response.data);
+      alert('Added to cart');
+    } catch (error) {
+      setError(error.response.data.error || 'An error occurred when adding to cart');
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
-      <div className="card-container">
-        <Row xs={1} md={2} className="g-4">
-          {Object.keys(products).map((key, i) => (
-            <Col key={i}>
-              <Card>
-                <Card.Img variant="top" src={products[key].image_url} />
-                <Card.Body>
-                  <Card.Title>{products[key].name}</Card.Title>
-                  <Card.Text>{products[key].cost}</Card.Text>
-                  <Card.Text>{products[key].description}</Card.Text>
-                  <Card.Text>{products[key].tags}</Card.Text>
-                  <Button variant="dark">View Details</Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-      </div>
-    );
+    <div className="card-container" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', minHeight: '100vh', padding: '50px'}}>
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
+      <Row xs={1} md={3} className="g-4">
+        {products.map((product) => (
+          <Card key={product.id} style={{ width: '18rem', margin: '10px', padding: '20px'}}>
+            <Card.Img variant="top" src={product.image_url} />
+            <Card.Body>
+              <Card.Title>{product.name}</Card.Title>
+              <Card.Text>{product.cost}</Card.Text>
+              <Card.Text>{product.description}</Card.Text>
+              <Card.Text>{product.tags.map((tag, index) => (
+                <span key={index}>{tag.name}{index !== product.tags.length - 1 && ', '}</span>
+              ))}</Card.Text>
+              <Button className="btn btn-outline-dark" onClick={() => handleCart(product.id)}>Add to cart</Button>
+            </Card.Body>
+          </Card>
+        ))}
+      </Row>
+    </div>
+  );
 };
 
 export default Shop;

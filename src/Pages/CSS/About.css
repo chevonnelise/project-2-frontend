@@ -1,0 +1,19 @@
+.about-container {
+    text-align: center;
+    padding: 8vw;
+  }
+  
+  .about-heading {
+    font-weight: bold;
+    margin-bottom: 50px;
+    color:rgb(104, 140, 74);
+  }
+  
+  .about-content {
+    text-align: left;
+  }
+  
+  .about-paragraph {
+    margin-bottom: 20px;
+  }
+  

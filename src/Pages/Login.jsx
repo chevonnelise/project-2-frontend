@@ -39,7 +39,7 @@ const Login = () => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
       <div style={{ flex: 1 }}>
-        <img src={loginBanner} alt="LoginBanner" style={{ width: '50vw', height: '80vh' }} />
+        <img src={loginBanner} alt="LoginBanner" style={{ width: '50vw', height: '85vh' }} />
       </div>
       <div style={{ flex: 1, marginLeft: '100px', justifyContent: 'center', alignItems: 'center', maxHeight: '50vh' }}>
         {loading ? (
@@ -50,7 +50,7 @@ const Login = () => {
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
             <h1 style={{ marginBottom: '20px' }}>Login</h1>
             <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'top', width: '30vw', height: '30vh'}}>
-              <div style={{ marginBottom: '10px' }}>
+            <div style={{ marginBottom: '10px' }}>
                 <label style={{ display: 'block', marginBottom: '5px' }}>
                   Email:
                 </label>
