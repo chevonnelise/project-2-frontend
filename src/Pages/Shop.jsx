@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import Badge from 'react-bootstrap/Badge';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
@@ -49,7 +50,7 @@ const Shop = () => {
               <Card.Text>{product.cost}</Card.Text>
               <Card.Text>{product.description}</Card.Text>
               <Card.Text>{product.tags.map((tag, index) => (
-                <span key={index}>{tag.name}{index !== product.tags.length - 1 && ', '}</span>
+                <span key={index} style={{ marginRight: '5px', color: 'white' }}><Badge bg="success">{tag.name}{index !== product.tags.length - 1}</Badge></span>
               ))}</Card.Text>
               <Button className="btn btn-outline-dark" onClick={() => handleCart(product.id)}>Add to cart</Button>
             </Card.Body>
