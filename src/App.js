@@ -1,18 +1,21 @@
 import './App.css';
 import Navbar from './Components/Navbar/Navbar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Shop from './Pages/Shop';
+import Shop from './Pages/shop/Shop';
 import Home from './Pages/Home';
 import About from './Pages/About';
 import Contact from './Pages/Contact';
-import Cart from './Pages/Cart';
+import Cart from './Pages/cart/Cart';
 import Login from './Pages/Login';
 import Footer from './Components/Footer/Footer';
 import Register from './Pages/Register';
+import { ShopContextProvider } from './Context/ShopContext';
+
 
 function App() {
   return (
     <div>
+      <ShopContextProvider>
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -26,6 +29,7 @@ function App() {
         </Routes>
         <Footer />
       </BrowserRouter>
+      </ShopContextProvider>
     </div>
   );
 }

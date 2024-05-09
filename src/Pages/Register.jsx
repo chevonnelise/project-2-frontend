@@ -51,11 +51,11 @@ const Register = () => {
       <div style={{ flex: 1 }}>
         <img src={registerBanner} alt="RegisterBanner" style={{ width: '50vw', height: '85vh' }} />
       </div>
-      <div style={{ flex: 1, marginLeft: '100px', justifyContent: 'center', alignItems: 'center', maxHeight: '50vh' }}>
+      <div style={{ flex: 1, marginLeft: '100px', justifyContent: 'center', alignItems: 'center', maxHeight: '60vh' }}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
           <h1 style={{ marginBottom: '20px' }}>Register</h1>
           {error && <p style={{ color: 'red' }}>{error}</p>}
-          <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'top', width: '30vw', height: '30vh' }}>
+          <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'top', width: '30vw', height: '50vh' }}>
           <div style={{ marginBottom: '10px' }}>
               <label style={{ display: 'block', marginBottom: '5px' }}>Username:</label>
               <input
