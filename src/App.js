@@ -1,35 +1,43 @@
 import './App.css';
 import Navbar from './Components/Navbar/Navbar';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Shop from './Pages/shop/Shop';
 import Home from './Pages/Home';
-import About from './Pages/About';
+import About from './Components/Home/About';
 import Contact from './Pages/Contact';
 import Cart from './Pages/cart/Cart';
 import Login from './Pages/Login';
 import Footer from './Components/Footer/Footer';
 import Register from './Pages/Register';
 import { ShopContextProvider } from './Context/ShopContext';
+import { UserContextProvider } from './Context/UserContext';
 
 
 function App() {
   return (
     <div>
-      <ShopContextProvider>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
-          <Route path='/register' element={<Register />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-      </ShopContextProvider>
+      <UserContextProvider>
+        <ShopContextProvider>
+          <Router>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/shopseller" element={<ShopSeller />} />
+              <Route path="/shopseller/add" element={<AddProduct />} />
+              <Route path="/shopseller/edit/:productid" element={<EditProduct />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/login" element={<Login />} />
+              <Route path='/register' element={<Register />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/order" element={<Order />} />
+              <Route path="/order/:orderid" element={<Invoice />} />
+            </Routes>
+            <Footer />
+          </Router>
+        </ShopContextProvider>
+      </UserContextProvider>
     </div>
   );
 }
