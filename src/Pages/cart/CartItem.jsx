@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
 import { ShopContext } from '../../Context/ShopContext';
+import { createRoutesFromElements } from 'react-router-dom';
 
 const CartItem = (props) => {
 
     const {data} = props;
     const {cartItems, addToCart, removeFromCart, updateCartItemCount} = useContext(ShopContext);
+    // console.log(cartItems);
+    // console.log(data);
 
   return (
     <div className="cartItem">

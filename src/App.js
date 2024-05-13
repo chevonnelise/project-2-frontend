@@ -9,6 +9,10 @@ import Cart from './Pages/cart/Cart';
 import Login from './Pages/Login';
 import Footer from './Components/Footer/Footer';
 import Register from './Pages/Register';
+import Checkout from './Pages/cart/Checkout';
+import ShopSeller from './Pages/shopseller/ShopSeller';
+import AddProduct from './Pages/shopseller/AddProduct';
+import EditProduct from './Pages/shopseller/EditProduct';
 import { ShopContextProvider } from './Context/ShopContext';
 import { UserContextProvider } from './Context/UserContext';
 
@@ -31,8 +35,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path='/register' element={<Register />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="/order" element={<Order />} />
-              <Route path="/order/:orderid" element={<Invoice />} />
+              <Route path="/order" element={<Checkout />} />
             </Routes>
             <Footer />
           </Router>

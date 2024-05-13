@@ -3,7 +3,7 @@ import React, { createContext, useState } from 'react'
 
 export const UserContext = createContext(null);
 
-const UserContextProvider = () => {
+export const UserContextProvider = (props) => {
     const [usernameReg, setUsernameReg] = useState("");
     const [emailReg, setEmailReg] = useState("");
     const [passwordReg, setPasswordReg] = useState("");
@@ -16,7 +16,7 @@ const UserContextProvider = () => {
 
     const [loginStatus, setLoginStatus] = useState(false);
 
-    axios.defaults.withCredentials = true;
+    // axios.defaults.withCredentials = true;
 
     const register = async () => {
         setLoading(true);
@@ -63,77 +63,20 @@ const UserContextProvider = () => {
     const userAuthenticated = () => {
         axios.get("https://3000-chevonnelis-proj2backen-lqv6rdz4jy0.ws-us110.gitpod.io/api/users", {
             headers: {
-                "token": localStorage.getItem("token"),
+                "Authorization": "Bearer" + localStorage.getItem("token"),
             }
         }).then((response) =>{
             console.log(response);
         })
     }
 
-    return (
-        <div>
-            <div className="registration">
-                <h1>Registration</h1>
-                <label>Username</label>
-                <input
-                    type="text"
-                    placeholder="username"
-                    onChange={(e) => {
-                        setUsernameReg(e.target.value);
-                    }}
-                />
-                <label>Email</label>
-                <input
-                    type="text"
-                    placeholder="email"
-                    onChange={(e) => {
-                        setEmailReg(e.target.value);
-                    }}
-                />
-                <label>Password</label>
-                <input
-                    type="text"
-                    placeholder="password"
-                    onChange={(e) => {
-                        setPasswordReg(e.target.value);
-                    }}
-                />
-                <label>Confirm Password</label>
-                <input
-                    type="text"
-                    placeholder="confirm password"
-                    onChange={(e) => {
-                        setConfirmPasswordReg(e.target.value);
-                    }}
-                />
-                <button onClick={register}>Register</button>
-            </div>
-            <div className="login">
-                <h1>Login</h1>
-                <label>Email</label>
-                <input
-                    type="text"
-                    placeholder="email"
-                    onChange={(e) => {
-                        setEmail(e.target.value);
-                    }}
-                />
-                <label>Password</label>
-                <input
-                    type="text"
-                    placeholder="password"
-                    onChange={(e) => {
-                        setPassword(e.target.value);
-                    }}
-                />
-                <button onClick={login}>Login</button>
-            </div>
+    const context = {
+        loginStatus,
+    }
 
-            { loginStatus && (
-                <button onClick={userAuthenticated}>Check if Authenticated</button>
-            )}
-        </div>
+    return (
+        <UserContext.Provider value={context}>
+            {props.children}
+       </UserContext.Provider>
     )
 }
-
-export default UserContext

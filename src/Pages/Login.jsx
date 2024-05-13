@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import loginBanner from '../Components/Assets/login_banner.png';
+import { UserContext } from '../Context/UserContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const usercontext = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Set state variables with response data (if needed)
         setLoading(false);
       } catch (error) {
         setError(error);
@@ -74,9 +75,14 @@ const Login = () => {
                   style={{ width: '100%' }}
                 />
               </div>
-              <button type="submit" className="btn btn-outline-success"  style={{ marginBottom: '10px' }}>Login</button>
+              <button type="submit" className="btn btn-outline-success"  style={{ marginBottom: '10px' }}>{usercontext.loginStatus ? "Logged In" : "Login"}</button>
               <Link to="/register" className="btn btn-outline-primary">Register</Link>
             </form>
+            {usercontext.loginStatus && (
+                <>
+                    <h2>Welcome, User!</h2>
+                </>
+            )}
           </div>
         )}
       </div>
