@@ -29,11 +29,10 @@ const Login = () => {
     event.preventDefault();
     try {
       await axios.post('https://3000-chevonnelis-proj2backen-lqv6rdz4jy0.ws-us110.gitpod.io/api/users/login', { email, password }); // Change the URL to your backend login endpoint
-      alert('Login successful'); 
-      navigate("/");
-
+      alert('Login successful');
+      window.location.href = 'https://3000-chevonnelis-proj2backen-lqv6rdz4jy0.ws-us110.gitpod.io/login'; 
     } catch (error) {
-      alert('Error logging in'); 
+      alert('Error logging in');
     }
   };
 
@@ -51,10 +50,8 @@ const Login = () => {
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
             <h1 style={{ marginBottom: '20px' }}>Login</h1>
             <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'top', width: '30vw', height: '30vh'}}>
-            <div style={{ marginBottom: '10px' }}>
-                <label style={{ display: 'block', marginBottom: '5px' }}>
-                  Email:
-                </label>
+              <div style={{ marginBottom: '10px' }}>
+                <label style={{ display: 'block', marginBottom: '5px' }}>Email:</label>
                 <input
                   type="email"
                   value={email}
@@ -64,9 +61,7 @@ const Login = () => {
                 />
               </div>
               <div style={{ marginBottom: '10px' }}>
-                <label style={{ display: 'block', marginBottom: '5px' }}>
-                  Password:
-                </label>
+                <label style={{ display: 'block', marginBottom: '5px' }}>Password:</label>
                 <input
                   type="password"
                   value={password}
@@ -75,19 +70,19 @@ const Login = () => {
                   style={{ width: '100%' }}
                 />
               </div>
-              <button type="submit" className="btn btn-outline-success"  style={{ marginBottom: '10px' }}>{usercontext.loginStatus ? "Logged In" : "Login"}</button>
+              {/* Use ternary operator to render either the username or the login button */}
+              {usercontext.loginStatus ? (
+                <h2>Welcome, {usercontext.username}!</h2>
+              ) : (
+                <button type="submit" className="btn btn-outline-success" style={{ marginBottom: '10px' }}>Login</button>
+              )}
               <Link to="/register" className="btn btn-outline-primary">Register</Link>
             </form>
-            {usercontext.loginStatus && (
-                <>
-                    <h2>Welcome, User!</h2>
-                </>
-            )}
           </div>
         )}
       </div>
     </div>
-  );
+  );  
 };
 
 export default Login;

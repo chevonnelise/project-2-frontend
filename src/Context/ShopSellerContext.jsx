@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { WindowsLogo } from 'phosphor-react';
 import React, { createContext, useState } from 'react'
 
 export const ShopSellerContext = createContext(null);
@@ -24,6 +23,9 @@ export const ShopSellerContextProvider = () => {
         // Check if the logged-in user's ID matches the shop seller user ID
         if (response.data.userId === shopSellerUserId) {
           setLoginStatus(true);
+          // Navigate to a different route if shopSellerUserId matches
+          console.log("ok here")
+          window.location.href = 'https://3000-chevonnelis-proj2backen-lqv6rdz4jy0.ws-us110.gitpod.io/'; // Adjust the route according to your application's routes
         } else {
           setLoginStatus(false);
           alert("You are not authorized to login as a shop seller.");
@@ -70,7 +72,6 @@ export const ShopSellerContextProvider = () => {
       { loginStatus && (
         <button onClick={userAuthenticated}>Check if Authenticated</button>
       )}
-      {/* windows.location.href = 'https://3000-chevonnelis-proj2backen-lqv6rdz4jy0.ws-us110.gitpod.io/' */}
     </div>
   )
 }

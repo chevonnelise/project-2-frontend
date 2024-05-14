@@ -25,11 +25,11 @@ const Shop = () => {
   return (
     <div className="shop">
       <div className="shop-title">
-        <h1>Browse Products</h1>
+        <h1 style={{ padding: '50px' }}>Browse Products</h1>
       </div>
       <div className="products">
         <Product />
-        <Cart products={products} /> {/* Pass the products array to the Cart component */}
+        {/* <Cart products={products} /> Pass the products array to the Cart component */}
       </div>
     </div>
   )

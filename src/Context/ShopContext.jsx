@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { UserContext } from './UserContext';
 
 export const ShopContext = createContext(null);
 
@@ -37,7 +38,47 @@ export const ShopContextProvider = (props) => {
     }
 
     
-    const [cartItems, setCartItems] = useState(getDefaultCart());
+    const [cartItems, setCartItems] = useState([]);
+    const [cartItemCount, setCartItemCount] = useState(0);
+    const [totalCost, setTotalCost] = useState(0.0);
+
+    const getCartItemId = (productId) => {
+        const cartItem = cartItems.find((i) => {
+            return i.product.id === productId;
+        })
+        return cartItem.id;
+    }
+
+    const getCartItemQty = (productId) => {
+        const cartItem = cartItems.find((i) => {
+            return i.product.id === productId;
+        })
+        return cartItem.quantity;
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (UserContext.user.id) {
+                    const getCartItems = await axios.get("https://3000-chevonnelis-proj2backen-lqv6rdz4jy0.ws-us110.gitpod.io/api/cart/${UserContext.user.id}");
+                    setCartItems(getCartItems.data.cartItems);
+                } else {
+                    setCartItems([]);
+                }
+            } catch (err) {
+                console.log(err);
+                if (err.response.status === 498) UserContext.refresh();
+            }
+        };
+        fetchData();
+    }, [UserContext.user.id, UserContext]);
+
+    const getCartItemCount = (productId) => {
+        if (productId in cartItems) {
+            return cartItems[productId]
+        }
+        return 0;
+    }
 
     const getTotalCartAmount = () => {
         let totalAmount = 0;
@@ -54,13 +95,21 @@ export const ShopContextProvider = (props) => {
         return totalAmount;
     }
 
-    const addToCart = (productId) => {
-        if (!cartItems[productId]){
-            setCartItems(prevCart => ({ ...prevCart, [findProductById(productId).id]: 1 }));
-        } else {
-            setCartItems(prevCart => ({ ...prevCart, [productId]: prevCart[productId] + 1 }));
-        } 
-        console.log(cartItems);
+    const addToCart = async (productId) => {
+        try {
+            const response = await axios.post("https://3000-chevonnelis-proj2backen-lqv6rdz4jy0.ws-us110.gitpod.io/api/cart/", {
+                userId: UserContext.user.id,
+                productId: productId,
+                quantity:1,
+            });
+
+            if (response.status === 201) {
+                setCartItems([...cartItems, response.data.message]);
+            }
+        } catch (err) {
+            console.log(err);
+            if (err.response.status === 498) UserContext.refresh();
+        }
     }
 
     const removeFromCart = (productId) => {
@@ -80,6 +129,7 @@ export const ShopContextProvider = (props) => {
         addToCart,
         removeFromCart,
         updateCartItemCount,
+        getCartItemCount,
         getTotalCartAmount
     };
 
